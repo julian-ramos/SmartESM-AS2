@@ -1,5 +1,6 @@
 package com.aware.plugin.data_collection;
 
+import java.util.List;
 import java.util.Random;
 
 import android.content.BroadcastReceiver;
@@ -8,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.ServiceInfo;
 import android.database.Cursor;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.os.Vibrator;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.view.accessibility.AccessibilityManager;
 
 import com.aware.Aware;
 import com.aware.Aware_Preferences;
@@ -211,7 +214,7 @@ public class Plugin extends Aware_Plugin{
 		setUpCallHandler();
 	}
 
-	public void setUpCallHandler(){
+    public void setUpCallHandler(){
 
 		TelephonyManager telephonyManager =
 				(TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
@@ -815,8 +818,9 @@ public class Plugin extends Aware_Plugin{
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+
 		//turn off sensors
-        Aware.setSetting(this, Aware_Preferences.STATUS_APPLICATIONS, false);
+        Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_APPLICATIONS, false);
 		Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_BAROMETER, false);
 		Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_BATTERY, false);
 		Aware.setSetting(getApplicationContext(), Aware_Preferences.STATUS_COMMUNICATION_EVENTS, false);
@@ -847,6 +851,5 @@ public class Plugin extends Aware_Plugin{
 		unregisterReceiver(screenOnReceiver);
 
         stopService(framework);
-
 	}	
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aware.plugin.data_collection"
     android:versionCode="1"
     android:versionName="1.0" >
@@ -112,6 +113,15 @@
             android:theme="@android:style/Theme.NoDisplay"
             android:excludeFromRecents="true" >
         </activity>
+
+        <!-- AWARE Service we need to override -->
+        <service
+            android:name="com.aware.Applications"
+            android:exported="true"
+            android:enabled="true"
+            tools:replace="android:enabled"
+            ></service>
+
     </application>
 
 </manifest>
